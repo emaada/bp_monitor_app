@@ -57,6 +57,21 @@ error_graph.py
 └── Standalone error analysis and graphing utilities
 ```
 
+### Thread Safety
+
+The application uses **thread-safe mechanisms** to handle concurrent access to shared data:
+
+- **BLEStreamer Lock** (`threading.Lock()` in bp_core.py):
+  - Protects the `_buffer` list (circular ECG/PPG sample buffer)
+  - Prevents race conditions between the BLE background thread (receiving data) and main GUI thread (reading data)
+  - Ensures safe access during:
+    - Buffer size queries (`buffer_size` property)
+    - Data window extraction (`get_window()`)
+    - Buffer inspection (`peek_buffer()`)
+    - New sample appends from BLE notifications
+
+This architecture allows real-time BLE data streaming while maintaining data consistency in the GUI.
+
 ## Hardware Requirements
 
 ### Sensors
@@ -155,6 +170,61 @@ ecg,ppg
 - **ppg**: Raw PPG signal amplitude (int or float)
 - **Minimum rows**: ~2500 for 10-second windows at 250 Hz
 - **Optional columns**: Can include other data; only 'ecg' and 'ppg' are processed
+
+## Signal Processing
+
+The application implements a multi-stage signal processing pipeline to extract reliable blood pressure indicators from noisy physiological signals:
+
+### Overview
+Raw ECG and PPG signals acquired from sensors contain noise, artifacts, and baseline drift. The processing pipeline applies successive filtering, peak detection, and feature extraction steps to isolate the pulse information needed for BP estimation.
+
+### Filtering: Butterworth Filters
+
+The application uses **Butterworth IIR (Infinite Impulse Response) filters** for signal conditioning:
+
+**Why Butterworth?**
+- **Maximally flat passband**: Provides no ripple in the frequency band of interest, preserving true signal amplitudes
+- **Smooth rolloff**: Gentle frequency response transition minimizes phase distortion that could affect PAT timing
+- **Low computational cost**: IIR filters are more efficient than FIR alternatives, critical for real-time processing
+- **Order 2**: Provides sufficient filtering (40 dB/decade attenuation) while maintaining causality and stability
+
+**Filter Characteristics:**
+- **ECG Bandpass (0.5–35 Hz, Order 2)**: Attenuates DC drift and muscle noise while preserving QRS complex shape
+- **PPG Lowpass (8 Hz cutoff, Order 2)**: Removes high-frequency sensor noise while retaining pulsatile component
+
+**Implementation**: Uses `scipy.signal.butter()` for filter design and `scipy.signal.sosfilt()` for stable cascaded application (scipy 1.7.0+).
+
+### Processing Pipeline & Purpose
+
+1. **ECG Bandpass Filtering (0.5–35 Hz, Butterworth order 2)**
+   - **Purpose**: Removes baseline wander (< 0.5 Hz) and high-frequency noise (> 35 Hz)
+   - **Benefit**: Isolates the QRS complex (R-peak) for accurate heart rate and PAT timing
+
+2. **PPG Lowpass Filtering (8 Hz cutoff)**
+   - **Purpose**: Attenuates motion artifacts and sensor noise above heart rate frequencies
+   - **Benefit**: Preserves the pulsatile PPG envelope needed for pulse onset/peak detection
+
+3. **R-Peak Detection in Filtered ECG**
+   - **Method**: `scipy.signal.find_peaks()` with dynamic thresholding
+   - **Purpose**: Identifies QRS complexes (R-waves) as timing references for PAT measurement
+   - **Requirement**: ≥ 3 peaks per window for valid processing
+
+4. **PPG Foot/Peak Detection**
+   - **Purpose**: Locates pulse onset (foot) or systolic peak in filtered PPG signal
+   - **Timing Windows**: Algorithm-dependent (ear: 40–300 ms; finger: 150–600 ms post R-peak)
+   - **Rationale**: Pulse transit delay varies by sensor placement; different windows capture different physiological phases
+
+5. **PAT Matching & Calculation**
+   - **Purpose**: Finds PPG features within expected timing windows relative to each R-peak
+   - **Output**: PAT value (milliseconds) for each beat
+
+6. **Outlier Removal (IQR Method: 1.5 × IQR fence)**
+   - **Purpose**: Eliminates spurious PAT values from ectopic beats or artifacts
+   - **Benefit**: Ensures robust statistics by removing extreme outliers
+
+7. **Median PAT & Quality Flags**
+   - **Purpose**: Returns representative PAT value and validation status
+   - **Robustness**: Median is less sensitive to remaining outliers than mean
 
 ## Algorithms
 
