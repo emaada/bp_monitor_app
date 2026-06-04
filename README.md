@@ -156,6 +156,69 @@ python bp_app.py
   - Linear regression formulas used
   - Number of valid windows processed
 
+## Testing
+
+### Unit Tests
+
+The project includes comprehensive unit tests for core algorithms and signal processing:
+
+```bash
+# Run all tests
+python -m unittest test_bp_core.py
+
+# Or with verbose output
+python -m unittest test_bp_core.py -v
+
+# Or with pytest (if installed)
+pip install pytest
+pytest test_bp_core.py -v
+```
+
+### Test Coverage
+
+**test_bp_core.py** includes test suites for:
+
+1. **Signal Quality Index (SQI)**
+   - Valid signals with good ECG and PPG
+   - Low ECG amplitude rejection
+   - Missing PPG signal rejection
+
+2. **Signal Filtering**
+   - Bandpass and lowpass filter application
+   - Minimum signal length validation
+   - DC component removal
+
+3. **PAT Calculation**
+   - PAT detection with synthetic signals
+   - Handling of insufficient R-peaks
+   - Foot vs. peak PAT methods
+
+4. **Calibration Model**
+   - Default model prediction (foot and peak methods)
+   - Adding/removing calibration records
+   - Model fitting with sufficient data
+   - SBP diversity validation
+   - Model serialization (save/load)
+
+5. **Integration Tests**
+   - End-to-end signal processing pipeline
+   - Complete workflow from raw signals to BP prediction
+
+### Running Tests
+
+All tests are self-contained with synthetic signal generation. No external data files required:
+
+```bash
+cd bp_monitor_app
+python test_bp_core.py
+```
+
+Expected output:
+```
+Ran 18 tests in 0.xxx seconds
+OK
+```
+
 ### CSV File Format
 
 **Calibration/Measurement CSV Requirements:**
