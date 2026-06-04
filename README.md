@@ -1,4 +1,4 @@
-# BP Monitor — Ear-based Blood Pressure Monitoring System
+# BP Monitor: Ear-based Blood Pressure Monitoring System
 
 A comprehensive Python application for non-invasive blood pressure estimation using ear-placed ECG and photoplethysmography (PPG) sensors. The system employs pulse arrival time (PAT) measurements and linear regression models for personalized BP prediction.
 
