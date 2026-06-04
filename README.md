@@ -329,31 +329,31 @@ Typical system performance on reference data:
 ## Results & Analysis
 
 ### Overall Performance Summary
-![Overall Summary Statistics](01_overall_summary_statistics.png)
+![Overall Summary Statistics](img/01_overall_summary_statistics.png)
 
 ### Mode Performance Comparison
 Comparison of **Foot** vs. **Peak** algorithm performance:
-![Mode Performance Comparison](02_mode_performance_comparison.png)
+![Mode Performance Comparison](img/02_mode_performance_comparison.png)
 
 ### BP Estimation Accuracy
 SBP and DBP correlation with reference values:
-![SBP/DBP Correlation](03_sbp_dbp_correlation.png)
+![SBP/DBP Correlation](img/03_sbp_dbp_correlation.png)
 
 ### Error Distribution Analysis
 Distribution of blood pressure estimation errors:
-![Error Distribution](04_donut_error_distribution.png)
+![Error Distribution](img/04_donut_error_distribution.png)
 
 ### BP Error Box Plot
 Statistical distribution of errors across measurements:
-![BP Error Box Plot](05_bp_error_boxplot.png)
+![BP Error Box Plot](img/05_bp_error_boxplot.png)
 
 ### Mean Absolute Error (MAE) per Recording
 Individual recording performance (MAE metric):
-![MAE Per Recording](06_mae_per_recording.png)
+![MAE Per Recording](img/06_mae_per_recording.png)
 
 ### Root Mean Square Error (RMSE) per Recording
 Individual recording performance (RMSE metric):
-![RMSE Per Recording](07_rmse_per_recording.png)
+![RMSE Per Recording](img/07_rmse_per_recording.png)
 
 ## References
 

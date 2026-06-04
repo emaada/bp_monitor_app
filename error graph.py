@@ -47,7 +47,7 @@ plt.ylabel("Error (mmHg)")
 plt.title("Overall Blood Pressure Error Statistics")
 plt.legend()
 plt.tight_layout()
-plt.savefig("01_overall_summary_statistics.png", dpi=300)
+plt.savefig("img/01_overall_summary_statistics.png", dpi=300)
 plt.show()
 
 # =========================
@@ -69,7 +69,7 @@ plt.ylabel("Error (mmHg)")
 plt.title("Mode-Based Blood Pressure Tracking Performance")
 plt.legend()
 plt.tight_layout()
-plt.savefig("02_mode_performance_comparison.png", dpi=300)
+plt.savefig("img/02_mode_performance_comparison.png", dpi=300)
 plt.show()
 
 # =========================
@@ -88,7 +88,7 @@ plt.xlabel("SBP Error (mmHg)")
 plt.ylabel("DBP Error (mmHg)")
 plt.title(f"SBP vs DBP Error Correlation (r = {correlation:.3f})")
 plt.tight_layout()
-plt.savefig("03_sbp_dbp_correlation.png", dpi=300)
+plt.savefig("img/03_sbp_dbp_correlation.png", dpi=300)
 plt.show()
 
 # =========================
@@ -107,7 +107,7 @@ plt.pie(
 )
 plt.title("Average Blood Pressure Error Distribution")
 plt.tight_layout()
-plt.savefig("04_donut_error_distribution.png", dpi=300)
+plt.savefig("img/04_donut_error_distribution.png", dpi=300)
 plt.show()
 
 # =========================
@@ -122,7 +122,7 @@ plt.boxplot(
 plt.ylabel("Error (mmHg)")
 plt.title("Distribution and Variability of BP Errors")
 plt.tight_layout()
-plt.savefig("05_bp_error_boxplot.png", dpi=300)
+plt.savefig("img/05_bp_error_boxplot.png", dpi=300)
 plt.show()
 
 # =========================
@@ -140,7 +140,7 @@ plt.ylabel("Error (mmHg)")
 plt.title("SBP vs DBP Mean Absolute Error per Recording")
 plt.legend()
 plt.tight_layout()
-plt.savefig("06_mae_per_recording.png", dpi=300)
+plt.savefig("img/06_mae_per_recording.png", dpi=300)
 plt.show()
 
 # =========================
@@ -155,7 +155,7 @@ plt.ylabel("RMSE (mmHg)")
 plt.title("SBP vs DBP RMSE per Recording")
 plt.legend()
 plt.tight_layout()
-plt.savefig("07_rmse_per_recording.png", dpi=300)
+plt.savefig("img/07_rmse_per_recording.png", dpi=300)
 plt.show()
 
 # =========================

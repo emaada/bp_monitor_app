@@ -30,7 +30,7 @@ plt.ylabel("Error (mmHg)")
 plt.title("SBP vs DBP Mean Absolute Error per Recording")
 plt.legend()
 plt.tight_layout()
-plt.savefig("mae_per_recording.png", dpi=300)
+plt.savefig("../img/mae_per_recording.png", dpi=300)
 plt.show()
 
 # 2. Error distribution
@@ -42,7 +42,7 @@ plt.ylabel("Frequency")
 plt.title("Distribution of BP Errors")
 plt.legend()
 plt.tight_layout()
-plt.savefig("error_distribution.png", dpi=300)
+plt.savefig("../img/error_distribution.png", dpi=300)
 plt.show()
 
 # 3. Peak vs Foot comparison
@@ -53,7 +53,7 @@ plt.ylabel("Mean Error (mmHg)")
 plt.title("Average Error by Detection Mode")
 plt.xticks(rotation=0)
 plt.tight_layout()
-plt.savefig("mode_comparison.png", dpi=300)
+plt.savefig("../img/mode_comparison.png", dpi=300)
 plt.show()
 
 # 4. SBP vs DBP correlation
@@ -67,7 +67,7 @@ plt.xlabel("SBP MAE (mmHg)")
 plt.ylabel("DBP MAE (mmHg)")
 plt.title("Correlation Between SBP and DBP Error")
 plt.tight_layout()
-plt.savefig("sbp_dbp_correlation.png", dpi=300)
+plt.savefig("../img/sbp_dbp_correlation.png", dpi=300)
 plt.show()
 
 # 5. RMSE comparison
@@ -79,7 +79,7 @@ plt.ylabel("RMSE (mmHg)")
 plt.title("SBP vs DBP RMSE per Recording")
 plt.legend()
 plt.tight_layout()
-plt.savefig("rmse_per_recording.png", dpi=300)
+plt.savefig("../img/rmse_per_recording.png", dpi=300)
 plt.show()
 
 print("Overall statistics:")
