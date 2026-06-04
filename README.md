@@ -75,8 +75,8 @@ This architecture allows real-time BLE data streaming while maintaining data con
 ## Hardware Requirements
 
 ### Sensors
-- **ECG Lead**: Single-lead electrocardiogram sensor placed on the ear
-- **PPG Sensor**: Photoplethysmography sensor (optical, typically infrared) on the ear
+- **ECG Lead**: Triple-lead electrocardiogram sensor placed on the ear (AD8232)
+- **PPG Sensor**: Photoplethysmography sensor (optical, typically infrared) on the ear (MAX30102)
 - **Microcontroller**: ESP32 or compatible with BLE support for real-time streaming
 
 ### Signal Specifications
